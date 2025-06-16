@@ -1,0 +1,28 @@
+{
+    "benefits" : [
+        {
+            "title": "Agendamento Automatizado",
+            "content": "Controlar horários do agendamento"
+        },
+        {
+            "title": "Registro de todas as consultas",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt lorem vel neque sollicitudin."
+        },
+        {
+            "title": "Planos e Pacotes",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt lorem vel neque sollicitudin."
+        },
+        {
+            "title": "Título 2",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt lorem vel neque sollicitudin."
+        },
+        {
+            "title": "Título1",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt lorem vel neque sollicitudin."
+        },
+        {
+            "title": "Título 2",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt lorem vel neque sollicitudin."
+        }
+    ]
+}

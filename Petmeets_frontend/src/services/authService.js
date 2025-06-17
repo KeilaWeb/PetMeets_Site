@@ -31,3 +31,13 @@ export const registerClientAndPet = async (clientData, petData) => {
     throw error;
   }
 };
+
+export const getClientsAndPets = async () => {
+  try {
+    const response = await api.get('/clients/list');
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar clientes:', error);
+    throw error;
+  }
+};

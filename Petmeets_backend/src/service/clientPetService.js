@@ -21,7 +21,25 @@ const createPet = async (pet) => {
   return result;
 };
 
+const getAllClientsWithPets = async () => {
+  const [rows] = await pool.query(`
+    SELECT
+      c.id AS clientId,
+      c.nome AS clienteNome,
+      c.telefone,
+      c.email,
+      p.nomePet,
+      p.idade,
+      p.raca,
+      p.porte
+    FROM clients c
+    LEFT JOIN pets p ON p.client_id = c.id
+  `);
+  return rows;
+};
+
 module.exports = {
   createClient,
-  createPet
+  createPet,
+  getAllClientsWithPets
 };

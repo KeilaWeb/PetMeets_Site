@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import HomePage from './pages/Home/HomePage';
 import FormPage from './pages/Form/FormPage';
 import DashboardPage from './pages/Dasboard/DashboardPage';
+import ListClients from './pages/Dasboard/ListClientsPage';
 import RegisterClientPage from './pages/Dasboard/RegisterClientPage';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<FormPage />} />
         <Route path="/Dashboard" element={<DashboardPage />} />
+        <Route path="/list-clients" element={<ListClients />} />
         <Route path="/register-client" element={<RegisterClientPage />} />
       </Routes>
       {!hideNavbarFooter && <Footer />}

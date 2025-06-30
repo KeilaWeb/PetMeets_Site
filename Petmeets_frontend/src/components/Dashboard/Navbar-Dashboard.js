@@ -11,10 +11,12 @@ const NavbarDashboard = () => {
             </div>
             <div className="nav-links">
                 <Link to="/register-client">Registrar Cliente</Link>
+                <Link to="/clients">Todos os clientes</Link>
                 <Link to="/register-product">Cadastrar Produto</Link>
                 <Link to="/reports">Painel de Relatório</Link>
                 <Link to="/register-service">Cadastrar Serviços</Link>
             </div>
+            <Link to="">Falar com PetMeets</Link>
         </div>
     );
 };

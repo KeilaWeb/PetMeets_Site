@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use('/api/user', userRoutes);      // para rotas de usuário
 app.use('/auth', authRoutes);          // para login
-app.use('/clients', clientRoutes);     // para cliente/pet
+app.use('/api/clients', clientRoutes);     // para cliente/pet
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

@@ -26,8 +26,8 @@ const getAllClientsWithPets = async () => {
     SELECT
       c.id AS clientId,
       c.nome AS clienteNome,
-      c.telefone,
       c.email,
+      c.telefone,
       p.nomePet,
       p.idade,
       p.raca,
@@ -35,7 +35,30 @@ const getAllClientsWithPets = async () => {
     FROM clients c
     LEFT JOIN pets p ON p.client_id = c.id
   `);
-  return rows;
+  const clientsMap = {};
+
+  for (const row of rows) {
+    const clientId = row.clientId;
+
+    if (!clientsMap[clientId]) {
+      clientsMap[clientId] = {
+        clientId: clientId,
+        nome: row.clienteNome,
+        telefone: row.telefone,
+        email: row.email,
+        pets: []
+      };
+    }if (row.nomePet) {
+      clientsMap[clientId].pets.push({
+        nomePet: row.nomePet,
+        idade: row.idade,
+        raca: row.raca,
+        porte: row.porte
+      });
+    }
+  }
+
+  return Object.values(clientsMap);
 };
 
 module.exports = {

@@ -19,6 +19,7 @@ const registerClientAndPet = async (req, res) => {
 
 const listClientsWithPets = async (req, res) => {
   try {
+    console.log("Chamando listClientsWithPets");
     const rows = await clientService.getAllClientsWithPets(); // chamada ao service
     res.status(200).json(rows);
   } catch (error) {

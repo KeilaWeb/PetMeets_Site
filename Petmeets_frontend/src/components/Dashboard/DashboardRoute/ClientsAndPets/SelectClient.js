@@ -18,9 +18,6 @@ const SelectCliente = () => {
 
   return (
     <div className="conteudo">
-      <div className="cliente-geral">
-        <h2 className="texto-H2">Clientes</h2>
-      </div>
       <div className="tabela-cliente">
         <table>
           <thead>
@@ -28,17 +25,17 @@ const SelectCliente = () => {
               <th>Cliente</th>
               <th>E-mail</th>
               <th>Telefone</th>
-              <th>Pets cadastrados</th>
+              <th>Qtd Pets</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {clients.map((cliente, index) => (
+            {clients.map((c, index) => (
               <tr key={index}>
-                <td>{cliente.nome}</td>
-                <td>{cliente.email}</td>
-                <td>{cliente.telefone}</td>
-                <td>{cliente.pets?.length || 0}</td>
+                <td>{c.nome || c.clienteNome}</td>
+                <td>{c.email}</td>
+                <td>{c.telefone}</td>
+                <td>{c.pets?.length || 0}</td>
                 <td>
                   <button className="editar-cliente">Editar</button>
                   <button className="delete-cliente">Deletar</button>

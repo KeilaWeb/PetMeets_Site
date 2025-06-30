@@ -4,10 +4,10 @@
 @import '../../flex'
 @import '../../typography'
 
-.dashboard-page 
+.dashboard-page
   display: flex
 
-.navbar-dashboard 
+.navbar-dashboard
   width: 340px
   height: 100vh
   background-color: $color-blue
@@ -18,59 +18,59 @@
   align-items: center
   padding: 20px
 
-  .logo-nav 
+  .logo-nav
     top: 40px
     left: calc( 300px - 230px )
     position: absolute
     width: 200px
     height: 60px
 
-  .nav-links 
+  .nav-links
     display: flex
     flex-direction: column
     gap: 20px
 
-    a 
+    a
       color: $color-white
       text-decoration: none
       background-color: $color-dark-blue
       padding: 14px 50px
       border-radius: 10px
 
-.main-content 
+.main-content
   flex-grow: 1
 
-.menu-dashboard 
-  height: 100px 
+.menu-dashboard
+  height: 100px
   background-color: $color-white
   display: flex
   justify-content: space-between
   align-items: center
   padding: 20px 20px
 
-  .user-info 
+  .user-info
     display: flex
     align-items: center
 
-    .user-photo 
+    .user-photo
       width: 50px
       height: 50px
       border-radius: 50%
       margin-right: 10px
       background-color: $color-blue
 
-    p 
+    p
       margin: 0
       font-size: 18px
 
-    button 
-      margin-top: 14px
+    button
+      margin-top: 8px
       background-color: transparent
       border: none
       color: $color-pink
       cursor: pointer
 
-  .edit-profile 
+  .edit-profile
     background-color: $color-blue
     color: $color-white
     border: none
@@ -84,7 +84,7 @@
   border-image: linear-gradient(to right, transparent, $color-blue, transparent)
   border-image-slice: 1
 
-.intro-dashboard 
+.intro-dashboard
   flex-grow: 1
   background-color: $color-white
   display: flex
@@ -93,12 +93,74 @@
   justify-content: center
   padding: 20px
 
-  button 
+  button
     background-color: $color-blue
     color: $color-white
     border: none
     border-radius: 14px
-    padding: 16px 40px
+    padding: 10px 20px
     cursor: pointer
-    margin: 10px
+    margin: 4px
 
+
+  .tabela-cliente
+  width: 100%
+  max-width: 1000px
+  margin-top: 20px
+  border-radius: 12px
+  overflow: hidden
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05)
+
+  table
+    width: 100%
+    border-collapse: collapse
+    font-family: 'Roboto', sans-serif
+
+    thead
+      background-color: $color-blue
+      color: $color-white
+
+      th
+        padding: 12px
+        text-align: left
+        font-size: 16px
+        letter-spacing: 0.5px
+
+    tbody
+      tr
+        background-color: #f9f9f9
+        transition: background 0.3s
+
+        &:nth-child(even)
+          background-color: #f0f4ff
+
+        &:hover
+          background-color: #e1ebff
+
+        td
+          padding: 6px 16px
+          font-size: 15px
+          color: #333
+
+      button
+        padding: 6px 20px
+        margin-right: 6px
+        border: none
+        border-radius: 8px
+        font-size: 14px
+        cursor: pointer
+        transition: background-color 0.3s
+
+        &.editar-cliente
+          background-color: $color-blue
+          color: $color-white
+
+          &:hover
+            background-color: darken($color-blue, 10%)
+
+        &.delete-cliente
+          background-color: $color-pink
+          color: $color-white
+
+          &:hover
+            background-color: darken($color-pink, 10%)

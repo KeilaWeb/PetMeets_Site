@@ -1,10 +1,9 @@
-// src/components/Dashboard/DashboardRoute/Route-Register-Client/EditClientPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import RegisterClient from './RegisterClient';
+import RegisterClient from '../Route-Register-Client/RegisterClient';
 import { fetchClients } from '../../../../services/clientService';
 
-const EditClientPage = () => {
+const EditClients = () => {
   const { id } = useParams();
   const [client, setClient] = useState(null);
   const navigate = useNavigate();
@@ -36,4 +35,4 @@ const EditClientPage = () => {
   );
 };
 
-export default EditClientPage;
+export default EditClients;

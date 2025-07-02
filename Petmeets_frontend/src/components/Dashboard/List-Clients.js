@@ -1,7 +1,7 @@
 import '../../styles/components/Dashboard/_dashboard.sass';
 import SelectClient from '../../components/Dashboard/DashboardRoute/ClientsAndPets/SelectClient';
 
-const IntroDashboard = () => {
+const ListClients = () => {
   return (
     <div className="intro-dashboard">
       <SelectClient />
@@ -9,4 +9,4 @@ const IntroDashboard = () => {
   );
 };
 
-export default IntroDashboard;
+export default ListClients;

@@ -8,13 +8,17 @@ import FormPage from './pages/Form/FormPage';
 import DashboardPage from './pages/Dasboard/DashboardPage';
 import ListClients from './pages/Dasboard/ListClientsPage';
 import RegisterClientPage from './pages/Dasboard/RegisterClientPage';
-import ListClientsPage from './pages/Dasboard/ListClientsPage'
+import ListClientsPage from './pages/Dasboard/ListClientsPage';
+import EditClientPage from './pages/Dasboard/EditClientPage'
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/login" || location.pathname === "/dashboard" || location.pathname === "/register-client"|| location.pathname === "/clients";
-
-  console.log(location.pathname);
+  const hideNavbarFooter =
+    location.pathname === "/login" ||
+    location.pathname === "/dashboard" ||
+    location.pathname === "/register-client"||
+    location.pathname === "/clients" ||
+    location.pathname.startsWith("/edit-client/");
 
   return (
     <div>
@@ -27,6 +31,7 @@ function App() {
         <Route path="/list-clients" element={<ListClients />} />
         <Route path="/register-client" element={<RegisterClientPage />} />
         <Route path="/clients" element={<ListClientsPage />} />
+        <Route path="/edit-client/:id" element={<EditClientPage />} />
       </Routes>
       {!hideNavbarFooter && <Footer />}
     </div>

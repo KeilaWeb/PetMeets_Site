@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../styles/components/_navbar.sass';
 import logo from '../../img/logo_petmeets.png';
 import { Link } from 'react-router-dom';

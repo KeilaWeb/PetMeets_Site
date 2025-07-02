@@ -8,7 +8,7 @@ export const fetchClients = async () => {
 };
 
 export const updateClient = async (id, clientData) => {
-  const response = await axios.put(`${API_BASE_URL}/clients/${id}`, clientData);
+  const response = await axios.put(`${API_BASE_URL}/edit-client/${id}`, clientData);
   return response.data;
 };
 

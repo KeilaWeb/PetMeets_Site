@@ -8,10 +8,11 @@ import FormPage from './pages/Form/FormPage';
 import DashboardPage from './pages/Dasboard/DashboardPage';
 import ListClients from './pages/Dasboard/ListClientsPage';
 import RegisterClientPage from './pages/Dasboard/RegisterClientPage';
+import ListClientsPage from './pages/Dasboard/ListClientsPage'
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = location.pathname === "/login" || location.pathname === "/dashboard" || location.pathname === "/register-client";
+  const hideNavbarFooter = location.pathname === "/login" || location.pathname === "/dashboard" || location.pathname === "/register-client"|| location.pathname === "/clients";
 
   console.log(location.pathname);
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/Dashboard" element={<DashboardPage />} />
         <Route path="/list-clients" element={<ListClients />} />
         <Route path="/register-client" element={<RegisterClientPage />} />
+        <Route path="/clients" element={<ListClientsPage />} />
       </Routes>
       {!hideNavbarFooter && <Footer />}
     </div>

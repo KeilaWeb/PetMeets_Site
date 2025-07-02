@@ -61,8 +61,25 @@ const getAllClientsWithPets = async () => {
   return Object.values(clientsMap);
 };
 
+const updateClient = async (id, client) => {
+  const { nome, cpf, telefone, email, cidade, cep, endereco, numero } = client;
+  const query = `
+    UPDATE clients SET nome = ?, cpf = ?, telefone = ?, email = ?, cidade = ?, cep = ?, endereco = ?, numero = ?
+    WHERE id = ?
+  `;
+  await pool.query(query, [nome, cpf, telefone, email, cidade, cep, endereco, numero, id]);
+};
+
+
+const deleteClientById = async (id) => {
+  const query = `DELETE FROM clients WHERE id = ?`;
+  await pool.query(query, [id]);
+};
+
 module.exports = {
   createClient,
   createPet,
-  getAllClientsWithPets
+  getAllClientsWithPets,
+  deleteClientById,
+  updateClient
 };

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ClientForm from './ClientForm';
 import PetForm from './PetForm';
-import { registerClientAndPet } from '../../../../services/authService';
+import { updateClient, registerClientAndPet } from '../../../../services/clientService';
 import { useNavigate } from 'react-router-dom';
 import '../../../../styles/components/Dashboard/_formDashboard.sass';
 
-const RegisterClient = () => {
+const RegisterClient = ({ existingClient, onFinish }) => {
   const [step, setStep] = useState(1);
   const [clientData, setClientData] = useState({
     nome: '',
@@ -21,6 +21,26 @@ const RegisterClient = () => {
   });
   const [pets, setPets] = useState([]);
   const navigate = useNavigate();
+
+  // Preencher os dados se estiver em modo de edição
+  useEffect(() => {
+    if (existingClient) {
+      setClientData({
+        nome: existingClient.nome || existingClient.clienteNome || '',
+        cpf: existingClient.cpf || '',
+        telefone: existingClient.telefone || '',
+        email: existingClient.email || '',
+        endereco: {
+          cidade: existingClient.endereco?.cidade || '',
+          cep: existingClient.endereco?.cep || '',
+          rua: existingClient.endereco?.rua || '',
+          numero: existingClient.endereco?.numero || ''
+        }
+      });
+
+      setPets(existingClient.pets || []);
+    }
+  }, [existingClient]);
 
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
@@ -45,11 +65,22 @@ const RegisterClient = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await registerClientAndPet(clientData, pets);
-      console.log('Client and pets registered successfully:', response);
-      navigate('/dashboard');
+      if (existingClient) {
+        await updateClient(existingClient.clientId, {
+          ...clientData,
+          pets
+        });
+      } else {
+        await registerClientAndPet(clientData, pets);
+      }
+
+      if (onFinish) {
+        onFinish();
+      } else {
+        navigate('/dashboard'); // fallback se onFinish não for passado
+      }
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error('Erro ao salvar cliente:', error);
     }
   };
 
@@ -58,18 +89,31 @@ const RegisterClient = () => {
       return (
         <div className="register-client-container">
           <div className="white-box">
-            <ClientForm clientData={clientData} handleClientChange={handleClientChange} handleAddressChange={handleAddressChange} nextStep={nextStep} />
+            <ClientForm
+              clientData={clientData}
+              handleClientChange={handleClientChange}
+              handleAddressChange={handleAddressChange}
+              nextStep={nextStep}
+            />
           </div>
         </div>
       );
+
     case 2:
       return (
         <div className="register-client-container">
           <div className="white-box">
-            <PetForm pets={pets} addPet={addPet} removePet={removePet} prevStep={prevStep} handleSubmit={handleSubmit} />
+            <PetForm
+              pets={pets}
+              addPet={addPet}
+              removePet={removePet}
+              prevStep={prevStep}
+              handleSubmit={handleSubmit}
+            />
           </div>
         </div>
       );
+
     default:
       return <div>Erro: Passo desconhecido.</div>;
   }

@@ -28,7 +28,32 @@ const listClientsWithPets = async (req, res) => {
   }
 };
 
+const updateClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const clientData = req.body;
+    await clientService.updateClient(id, clientData);
+    res.status(200).json({ message: 'Cliente atualizado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao atualizar cliente:', error);
+    res.status(500).json({ error: 'Erro interno ao atualizar cliente.' });
+  }
+};
+
+const deleteClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await clientService.deleteClientById(id);
+    res.status(200).json({ message: 'Cliente deletado com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao deletar cliente:', error);
+    res.status(500).json({ error: 'Erro ao deletar cliente.' });
+  }
+};
+
 module.exports = {
   registerClientAndPet,
-  listClientsWithPets
+  listClientsWithPets,
+  deleteClient,
+  updateClient
 };

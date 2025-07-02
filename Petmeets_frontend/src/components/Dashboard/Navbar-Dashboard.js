@@ -18,7 +18,9 @@ const NavbarDashboard = () => {
                 <Link to="/reports">Painel de Relatório</Link>
                 <Link to="/register-service">Cadastrar Serviços</Link>
             </div>
-            <Link to="">Falar com PetMeets</Link>
+            <div className="call-pet">
+                <Link to="">Falar com PetMeets</Link>
+            </div>
         </div>
     );
 };

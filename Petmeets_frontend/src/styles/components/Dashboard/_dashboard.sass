@@ -9,7 +9,7 @@
 
 .navbar-dashboard
   width: 340px
-  height: 100vh
+  min-height: 100vh
   background-color: $color-blue
   color: $color-white
   display: flex
@@ -20,10 +20,14 @@
 
   .logo-nav
     top: 40px
-    left: calc( 300px - 230px )
+    left: calc( 300px - 265px )
     position: absolute
     width: 200px
     height: 60px
+
+  .call-pet
+    position: absolute
+    bottom: 20px
 
   .nav-links
     display: flex
@@ -34,7 +38,7 @@
       color: $color-white
       text-decoration: none
       background-color: $color-dark-blue
-      padding: 14px 50px
+      padding: 14px 30px
       border-radius: 10px
 
 .main-content

@@ -10,4 +10,4 @@ export { default as MenuDashboard } from './Dashboard/Menu-Dashboard';
 export { default as IntroDashboard } from './Dashboard/Intro-Dashboard';
 export { default as RegisterClient } from './Dashboard/DashboardRoute/Route-Register-Client/RegisterClient';
 export { default as SelectClient } from './Dashboard/DashboardRoute/ClientsAndPets/SelectClient';
-export { default as ListClients } from './Dashboard/List-Clients';
+export { default as ListClients } from './Dashboard/DashboardRoute/ClientsAndPets/List-Clients';

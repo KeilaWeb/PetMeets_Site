@@ -22,7 +22,6 @@ const RegisterClient = ({ existingClient, onFinish }) => {
   const [pets, setPets] = useState([]);
   const navigate = useNavigate();
 
-  // Preencher os dados se estiver em modo de edição
   useEffect(() => {
     if (existingClient) {
       setClientData({

@@ -1,11 +1,10 @@
-// SelectCliente.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchClients, deleteClient } from '../../../../services/clientService';
-import RegisterClient from '../Route-Register-Client/RegisterClient';
 
 const SelectCliente = () => {
+  const navigate = useNavigate();
   const [clients, setClients] = useState([]);
-  const [editingClient, setEditingClient] = useState(null);
 
   const handleDelete = (idToDelete) => {
     setClients(prevClients => prevClients.filter(c => c.clientId !== idToDelete));
@@ -45,7 +44,9 @@ const SelectCliente = () => {
                 <td>{c.telefone}</td>
                 <td>{c.pets?.length || 0}</td>
                 <td>
-                  <button onClick={() => setEditingClient(c)} className="editar-cliente">Editar</button>
+                  <button className="editar-cliente" onClick={() => navigate(`/edit-client/${c.clientId}`)}>
+                    Editar
+                  </button>
                   <button
                     className="delete-cliente"
                     onClick={async () => {
@@ -67,16 +68,6 @@ const SelectCliente = () => {
           </tbody>
         </table>
       </div>
-
-      {editingClient && (
-        <RegisterClient
-          existingClient={editingClient}
-          onFinish={() => {
-            setEditingClient(null);
-            loadClients();
-          }}
-        />
-      )}
     </div>
   );
 };

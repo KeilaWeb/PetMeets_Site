@@ -7,7 +7,9 @@ const NavbarDashboard = () => {
     return (
         <div className="navbar-dashboard">
             <div>
-                <img alt="Logo PetMeets" loading="lazy" width="220" height="48" decoding="async" src={logovertical} className="logo-nav" />
+                <Link to="/dashboard">
+                    <img alt="Logo PetMeets" loading="lazy" width="220" height="48" decoding="async" src={logovertical} className="logo-nav" />
+                </Link>
             </div>
             <div className="nav-links">
                 <Link to="/register-client">Registrar Cliente</Link>

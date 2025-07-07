@@ -47,12 +47,6 @@ const SelectCliente = () => {
                 <td>{c.email}</td>
                 <td>{c.telefone}</td>
                 <td>{c.pets?.length || 0}</td>
-                <button
-                  className="ver-cliente"
-                  onClick={() => navigate(`/client/${c.clientId}`)}
-                >
-                  Ver
-                </button>
                 <td onClick={(e) => e.stopPropagation()}>
                   <button
                     className="editar-cliente"

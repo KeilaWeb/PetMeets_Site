@@ -75,19 +75,19 @@ const RegisterClient = ({ existingClient, onFinish }) => {
 
   const handleSubmit = async () => {
     try {
+      const payload = {
+        ...clientData,
+        cidade: clientData.endereco.cidade,
+        cep: clientData.endereco.cep,
+        endereco: clientData.endereco.rua,
+        numero: clientData.endereco.numero,
+        pets
+      };
+
       if (existingClient) {
-        await updateClient(existingClient.clientId, {
-          ...clientData,
-          endereco: {
-            cidade: clientData.endereco.cidade,
-            cep: clientData.endereco.cep,
-            rua: clientData.endereco.rua,
-            numero: clientData.endereco.numero
-          },
-          pets
-        });
+        await updateClient(existingClient.clientId, payload);
       } else {
-        await registerClientAndPet(clientData, pets);
+        await registerClientAndPet(payload);
       }
 
       if (onFinish) {

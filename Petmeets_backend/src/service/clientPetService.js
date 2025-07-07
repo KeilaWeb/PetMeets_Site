@@ -26,15 +26,25 @@ const getAllClientsWithPets = async () => {
     SELECT
       c.id AS clientId,
       c.nome AS clienteNome,
-      c.email,
+      c.cpf,
       c.telefone,
+      c.email,
+      c.cidade,
+      c.cep,
+      c.endereco AS rua,
+      c.numero,
       p.nomePet,
-      p.idade,
+      p.tipo,
       p.raca,
-      p.porte
+      p.aniversario,
+      p.idade,
+      p.cor,
+      p.porte,
+      p.observacoes
     FROM clients c
     LEFT JOIN pets p ON p.client_id = c.id
   `);
+
   const clientsMap = {};
 
   for (const row of rows) {
@@ -44,16 +54,29 @@ const getAllClientsWithPets = async () => {
       clientsMap[clientId] = {
         clientId: clientId,
         nome: row.clienteNome,
+        cpf: row.cpf,
         telefone: row.telefone,
         email: row.email,
+        endereco: {
+          cidade: row.cidade,
+          cep: row.cep,
+          rua: row.rua,
+          numero: row.numero,
+        },
         pets: []
       };
-    }if (row.nomePet) {
+    }
+
+    if (row.nomePet) {
       clientsMap[clientId].pets.push({
         nomePet: row.nomePet,
-        idade: row.idade,
+        tipo: row.tipo,
         raca: row.raca,
-        porte: row.porte
+        aniversario: row.aniversario,
+        idade: row.idade,
+        cor: row.cor,
+        porte: row.porte,
+        observacoes: row.observacoes
       });
     }
   }
@@ -62,14 +85,41 @@ const getAllClientsWithPets = async () => {
 };
 
 const updateClient = async (id, client) => {
-  const { nome, cpf, telefone, email, cidade, cep, endereco, numero } = client;
-  const query = `
-    UPDATE clients SET nome = ?, cpf = ?, telefone = ?, email = ?, cidade = ?, cep = ?, endereco = ?, numero = ?
+  const { nome, cpf, telefone, email, endereco, pets } = client;
+  const { cidade, cep, rua, numero } = endereco;
+
+  const updateClientQuery = `
+    UPDATE clients
+    SET nome = ?, cpf = ?, telefone = ?, email = ?, cidade = ?, cep = ?, endereco = ?, numero = ?
     WHERE id = ?
   `;
-  await pool.query(query, [nome, cpf, telefone, email, cidade, cep, endereco, numero, id]);
-};
 
+  await pool.query(updateClientQuery, [nome, cpf, telefone, email, cidade, cep, rua, numero, id]);
+
+  // Apaga pets antigos do cliente antes de inserir os novos
+  await pool.query(`DELETE FROM pets WHERE client_id = ?`, [id]);
+
+  // Insere pets atualizados
+  if (Array.isArray(pets)) {
+    for (const pet of pets) {
+      const insertPetQuery = `
+        INSERT INTO pets (nomePet, tipo, raca, aniversario, idade, cor, porte, observacoes, client_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+      await pool.query(insertPetQuery, [
+        pet.nomePet || pet.nome,
+        pet.tipo,
+        pet.raca,
+        pet.aniversario || null,
+        pet.idade,
+        pet.cor,
+        pet.porte,
+        pet.observacoes,
+        id
+      ]);
+    }
+  }
+};
 
 const deleteClientById = async (id) => {
   const query = `DELETE FROM clients WHERE id = ?`;
@@ -80,6 +130,6 @@ module.exports = {
   createClient,
   createPet,
   getAllClientsWithPets,
-  deleteClientById,
-  updateClient
+  updateClient,
+  deleteClientById
 };

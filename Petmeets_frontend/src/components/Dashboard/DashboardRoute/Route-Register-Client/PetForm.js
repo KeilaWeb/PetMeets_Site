@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const PetForm = ({ pets, addPet, removePet, prevStep, handleSubmit }) => {
+const PetForm = ({ pets, addPet, updatePet, removePet, prevStep, handleSubmit }) => {
   const [petData, setPetData] = useState({
     nome: '',
     tipo: '',
@@ -12,13 +12,49 @@ const PetForm = ({ pets, addPet, removePet, prevStep, handleSubmit }) => {
     observacoes: ''
   });
 
+  const [editingIndex, setEditingIndex] = useState(null);
+
+  useEffect(() => {
+    // Sempre que pets mudar, se estiver editando, atualiza petData para refletir possíveis mudanças externas
+    if (editingIndex !== null && pets[editingIndex]) {
+      setPetData(pets[editingIndex]);
+    }
+  }, [editingIndex, pets]);
+
   const handlePetChange = (e) => {
     const { name, value } = e.target;
     setPetData({ ...petData, [name]: value });
   };
 
-  const handleAddPet = () => {
-    addPet(petData);
+  const handleAddOrUpdatePet = () => {
+    if (editingIndex !== null) {
+      // Atualiza pet existente
+      updatePet(editingIndex, petData);
+      setEditingIndex(null);
+    } else {
+      // Adiciona pet novo
+      addPet(petData);
+    }
+    // Limpa formulário
+    setPetData({
+      nome: '',
+      tipo: '',
+      raca: '',
+      aniversario: '',
+      idade: '',
+      cor: '',
+      porte: '',
+      observacoes: ''
+    });
+  };
+
+  const handleEditClick = (index) => {
+    setEditingIndex(index);
+    setPetData(pets[index]);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingIndex(null);
     setPetData({
       nome: '',
       tipo: '',
@@ -35,13 +71,14 @@ const PetForm = ({ pets, addPet, removePet, prevStep, handleSubmit }) => {
     <div>
       <h5 className='padding-bottom-20 color-dark-blue'>Informações do Pet</h5>
       {pets.map((pet, index) => (
-        <div key={index}>
+        <div key={index} style={{ marginBottom: '10px' }}>
           <p>{pet.nome} ({pet.tipo})</p>
-          <button type="button-back" onClick={() => removePet(index)}>Remover</button>
+          <button type="button" onClick={() => handleEditClick(index)}>Editar</button>{' '}
+          <button type="button" onClick={() => removePet(index)}>Remover</button>
         </div>
       ))}
       <div className='client-register-container'>
-        <form className="form-client">
+        <form className="form-client" onSubmit={e => e.preventDefault()}>
           <div className="form-group">
             <label>Nome do Pet:</label>
             <input className="input-register" type="text" name="nome" value={petData.nome} onChange={handlePetChange} />
@@ -74,11 +111,20 @@ const PetForm = ({ pets, addPet, removePet, prevStep, handleSubmit }) => {
             <label>Observações:</label>
             <input className="input-register" type="text" name="observacoes" value={petData.observacoes} onChange={handlePetChange} />
           </div>
-          <button className='button' type="button" onClick={handleAddPet}>+ Adicionar Pet</button>
+          <button className='button' type="button" onClick={handleAddOrUpdatePet}>
+            {editingIndex !== null ? 'Salvar Alterações' : '+ Adicionar Pet'}
+          </button>
+          {editingIndex !== null && (
+            <button className='button-back' type="button" onClick={handleCancelEdit} style={{ marginLeft: '10px' }}>
+              Cancelar
+            </button>
+          )}
         </form>
       </div>
       <div className='padding-bottom-20'>
-        <button className="button" type="button" onClick={handleSubmit}>Concluir Cadastro</button>
+        <button className="button" type="button" onClick={handleSubmit}>
+          {pets.length > 0 ? 'Atualizar Informações' : 'Concluir Cadastro'}
+        </button>
       </div>
       <div>
         <button className="button-back" type="button" onClick={prevStep}>&laquo; Voltar</button>

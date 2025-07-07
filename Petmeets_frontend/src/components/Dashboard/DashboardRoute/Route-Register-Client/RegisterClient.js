@@ -30,14 +30,25 @@ const RegisterClient = ({ existingClient, onFinish }) => {
         telefone: existingClient.telefone || '',
         email: existingClient.email || '',
         endereco: {
-          cidade: existingClient.endereco?.cidade || '',
-          cep: existingClient.endereco?.cep || '',
-          rua: existingClient.endereco?.rua || '',
-          numero: existingClient.endereco?.numero || ''
+          cidade: existingClient.cidade || '',
+          cep: existingClient.cep || '',
+          rua: existingClient.endereco || '', // "endereco" é o campo da rua no banco
+          numero: existingClient.numero || ''
         }
       });
 
-      setPets(existingClient.pets || []);
+      if (existingClient.pets) {
+        setPets(existingClient.pets.map(p => ({
+          nome: p.nomePet,
+          tipo: p.tipo || '',
+          raca: p.raca || '',
+          aniversario: p.aniversario || '',
+          idade: p.idade || '',
+          cor: p.cor || '',
+          porte: p.porte || '',
+          observacoes: p.observacoes || ''
+        })));
+      }
     }
   }, [existingClient]);
 
@@ -67,6 +78,12 @@ const RegisterClient = ({ existingClient, onFinish }) => {
       if (existingClient) {
         await updateClient(existingClient.clientId, {
           ...clientData,
+          endereco: {
+            cidade: clientData.endereco.cidade,
+            cep: clientData.endereco.cep,
+            rua: clientData.endereco.rua,
+            numero: clientData.endereco.numero
+          },
           pets
         });
       } else {
@@ -76,7 +93,7 @@ const RegisterClient = ({ existingClient, onFinish }) => {
       if (onFinish) {
         onFinish();
       } else {
-        navigate('/dashboard'); // fallback se onFinish não for passado
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error('Erro ao salvar cliente:', error);

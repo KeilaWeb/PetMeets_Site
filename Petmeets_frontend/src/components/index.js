@@ -12,4 +12,5 @@ export { default as RegisterClient } from './Dashboard/DashboardRoute/Route-Regi
 export { default as SelectClient } from './Dashboard/DashboardRoute/ClientsAndPets/SelectClient';
 export { default as ListClients } from './Dashboard/DashboardRoute/ClientsAndPets/List-Clients';
 export { default as EditClients } from './Dashboard/DashboardRoute/ClientsAndPets/EditClients';
+export { default as ClientProfile } from './Dashboard/DashboardRoute/ClientsAndPets/ClientProfile';
 export { default as EditClient } from './Dashboard/EditClient';

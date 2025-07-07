@@ -37,19 +37,33 @@ const SelectCliente = () => {
             </tr>
           </thead>
           <tbody>
-            {clients.map((c, index) => (
-              <tr key={index}>
+            {clients.map((c) => (
+              <tr
+                key={c.clientId}
+                onClick={() => navigate(`/client/${c.clientId}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <td>{c.nome || c.clienteNome}</td>
                 <td>{c.email}</td>
                 <td>{c.telefone}</td>
                 <td>{c.pets?.length || 0}</td>
-                <td>
-                  <button className="editar-cliente" onClick={() => navigate(`/edit-client/${c.clientId}`)}>
+                <button
+                  className="ver-cliente"
+                  onClick={() => navigate(`/client/${c.clientId}`)}
+                >
+                  Ver
+                </button>
+                <td onClick={(e) => e.stopPropagation()}>
+                  <button
+                    className="editar-cliente"
+                    onClick={() => navigate(`/edit-client/${c.clientId}`)}
+                  >
                     Editar
                   </button>
                   <button
                     className="delete-cliente"
-                    onClick={async () => {
+                    onClick={async (e) => {
+                      e.stopPropagation(); // evita que o clique no botão dispare o clique da linha
                       if (window.confirm('Tem certeza que deseja deletar este cliente?')) {
                         try {
                           await deleteClient(c.clientId);

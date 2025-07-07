@@ -5,11 +5,11 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import HomePage from './pages/Home/HomePage';
 import FormPage from './pages/Form/FormPage';
-import DashboardPage from './pages/Dasboard/DashboardPage';
-import ListClients from './pages/Dasboard/ListClientsPage';
-import RegisterClientPage from './pages/Dasboard/RegisterClientPage';
-import ListClientsPage from './pages/Dasboard/ListClientsPage';
-import EditClientPage from './pages/Dasboard/EditClientPage'
+import DashboardPage from './pages/Dashboard/DashboardPage';
+import RegisterClientPage from './pages/Dashboard/RegisterClientPage';
+import ListClientsPage from './pages/Dashboard/ListClientsPage';
+import EditClientPage from './pages/Dashboard/EditClientPage';
+import ClientProfilePage from './pages/Dashboard/ClientProfilePage';
 
 function App() {
   const location = useLocation();
@@ -18,7 +18,8 @@ function App() {
     location.pathname === "/dashboard" ||
     location.pathname === "/register-client"||
     location.pathname === "/clients" ||
-    location.pathname.startsWith("/edit-client/");
+    location.pathname.startsWith("/edit-client/") ||
+    location.pathname.startsWith("/client/") ;
 
   return (
     <div>
@@ -28,10 +29,10 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<FormPage />} />
         <Route path="/Dashboard" element={<DashboardPage />} />
-        <Route path="/list-clients" element={<ListClients />} />
         <Route path="/register-client" element={<RegisterClientPage />} />
         <Route path="/clients" element={<ListClientsPage />} />
         <Route path="/edit-client/:id" element={<EditClientPage />} />
+        <Route path="/client/:id" element={<ClientProfilePage />} />
       </Routes>
       {!hideNavbarFooter && <Footer />}
     </div>

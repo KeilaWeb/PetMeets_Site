@@ -13,11 +13,19 @@ export const registerUser = async (userData) => {
 export const loginUser = async (loginData) => {
   try {
     const response = await api.post('/auth/login', loginData);
-    return response.data;
+
+    const { token, user } = response.data;
+
+    // Armazene tudo no localStorage
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+
+    return { user, token };
   } catch (error) {
     throw error;
   }
 };
+
 
 export const registerClientAndPet = async (clientData, petData) => {
   try {

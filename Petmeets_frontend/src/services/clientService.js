@@ -12,7 +12,6 @@ export const updateClient = async (id, clientData) => {
   return response.data;
 };
 
-// Repare que aqui recebe um objeto com clientData e pets
 export const registerClientAndPet = async (clientData, pets) => {
   const response = await axios.post(`${API_BASE_URL}/clients`, {
     clientData,

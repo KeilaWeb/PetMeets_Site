@@ -6,3 +6,4 @@ export { default as RegisterClientPage } from './Dashboard/RegisterClientPage';
 export { default as ListClientsPage } from './Dashboard/ListClientsPage';
 export { default as EditClientPage } from './Dashboard/EditClientPage';
 export { default as ClientProfilePage } from './Dashboard/ClientProfilePage';
+export { default as CalendarPage } from './Dashboard/CalendarPage';

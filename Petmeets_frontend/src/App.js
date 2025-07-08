@@ -10,6 +10,7 @@ import RegisterClientPage from './pages/Dashboard/RegisterClientPage';
 import ListClientsPage from './pages/Dashboard/ListClientsPage';
 import EditClientPage from './pages/Dashboard/EditClientPage';
 import ClientProfilePage from './pages/Dashboard/ClientProfilePage';
+import CalendarPage from './pages/Dashboard/CalendarPage';
 
 function App() {
   const location = useLocation();
@@ -19,7 +20,8 @@ function App() {
     location.pathname === "/register-client"||
     location.pathname === "/clients" ||
     location.pathname.startsWith("/edit-client/") ||
-    location.pathname.startsWith("/client/") ;
+    location.pathname.startsWith("/client/") ||
+    location.pathname === "/calendar";
 
   return (
     <div>
@@ -33,6 +35,7 @@ function App() {
         <Route path="/clients" element={<ListClientsPage />} />
         <Route path="/edit-client/:id" element={<EditClientPage />} />
         <Route path="/client/:id" element={<ClientProfilePage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
       </Routes>
       {!hideNavbarFooter && <Footer />}
     </div>
